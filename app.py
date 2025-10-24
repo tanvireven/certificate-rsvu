@@ -5,16 +5,15 @@ import io
 import re
 
 # ====== CONFIGURATION ======
-# Paths are relative to this script
 ASSETS_DIR = Path(__file__).parent / "assets"
 TEMPLATE_PATH = ASSETS_DIR / "template.png"
 FONT_PATH = ASSETS_DIR / "font.ttf"
 
 # ⚙️ Customize these to match your certificate design
-NAME_X = 750      # Horizontal position (increase → move right)
-NAME_Y = 700      # Vertical position (increase → move down)
-FONT_SIZE = 60    # Font size (adjust based on your template)
-FONT_COLOR = "#000000"  # Black text (use hex like "#2E8B57" for green)
+NAME_X = 750      # Horizontal position
+NAME_Y = 700      # Vertical position
+FONT_SIZE = 60    # Font size
+FONT_COLOR = "#000000"  # Text color
 
 # ====== PAGE SETUP ======
 st.set_page_config(
@@ -24,8 +23,8 @@ st.set_page_config(
 )
 
 st.title("🎓 Certificate by RSVU")
-st.caption("Devoloped by Tanvir Even | President, RSVU")
-st.caption("If any error occurs, Contact: 01608514747 ")
+st.caption("Developed by Tanvir Even | President, RSVU")
+st.caption("If any error occurs, Contact: 01608514747")
 
 # ====== VALIDATE ASSETS ======
 if not TEMPLATE_PATH.exists():
@@ -50,22 +49,20 @@ if st.button("✨ Generate Certificate"):
             cert = template.copy()
             draw = ImageDraw.Draw(cert)
 
-            # Load font: use custom font if available, else fallback
+            # Load font
             if FONT_PATH.exists():
                 font = ImageFont.truetype(str(FONT_PATH), FONT_SIZE)
             else:
-                # Try common system fonts (for better scaling)
                 try:
                     font = ImageFont.truetype("arial.ttf", FONT_SIZE)
                 except OSError:
                     try:
                         font = ImageFont.truetype("DejaVuSans.ttf", FONT_SIZE)
                     except OSError:
-                        # Last resort: default font (small, but works)
                         font = ImageFont.load_default()
-                        st.info("ℹ️ Using basic font. For best results, add 'font.ttf' to assets.")
+                        st.info("ℹ️ Using basic font. Add 'font.ttf' to assets for better look.")
 
-            # Draw the name on the certificate
+            # Draw name
             draw.text(
                 (NAME_X, NAME_Y),
                 user_name,
@@ -73,24 +70,41 @@ if st.button("✨ Generate Certificate"):
                 font=font
             )
 
-            # Display preview
-            st.image(cert, caption="Preview", use_column_width=True)
+            # Display preview — ✅ FIXED: use_container_width
+            st.image(cert, caption="Preview", use_container_width=True)
 
-            # Prepare PNG for download
-            img_buffer = io.BytesIO()
-            cert.save(img_buffer, format="PNG")
-            img_buffer.seek(0)
-
-            # Create safe filename (remove special characters)
+            # === Prepare downloads ===
             safe_name = re.sub(r"[^a-zA-Z0-9\s]", "", user_name).strip().replace(" ", "_")
 
-            # Download button
-            st.download_button(
-                label="📥 Download Certificate (PNG)",
-                data=img_buffer,
-                file_name=f"{safe_name}_certificate.png",
-                mime="image/png"
-            )
+            # PNG buffer
+            png_buffer = io.BytesIO()
+            cert.save(png_buffer, format="PNG")
+            png_buffer.seek(0)
+
+            # PDF buffer (PIL requires RGB mode for PDF)
+            pdf_buffer = io.BytesIO()
+            cert_rgb = cert.convert("RGB")  # Ensure RGB mode
+            cert_rgb.save(pdf_buffer, format="PDF")
+            pdf_buffer.seek(0)
+
+            # === Download buttons ===
+            col1, col2 = st.columns(2)
+
+            with col1:
+                st.download_button(
+                    label="📥 Download as PNG",
+                    data=png_buffer,
+                    file_name=f"{safe_name}_certificate.png",
+                    mime="image/png"
+                )
+
+            with col2:
+                st.download_button(
+                    label="📄 Download as PDF",
+                    data=pdf_buffer,
+                    file_name=f"{safe_name}_certificate.pdf",
+                    mime="application/pdf"
+                )
 
         except Exception as e:
             st.error(f"❌ An error occurred: {str(e)}")
@@ -98,4 +112,4 @@ if st.button("✨ Generate Certificate"):
 
 # ====== FOOTER ======
 st.markdown("---")
-st.caption("👨‍💻 Developed for university students")
+st.caption("👨‍💻 Robotics Society of Varendra University")
