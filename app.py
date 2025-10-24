@@ -9,122 +9,11 @@ ASSETS_DIR = Path(__file__).parent / "assets"
 TEMPLATE_PATH = ASSETS_DIR / "template.png"
 FONT_PATH = ASSETS_DIR / "font.ttf"
 
-# ⚙️ Adjust to match your template
-NAME_X = 750
-NAME_Y = 700
-FONT_SIZE = 60
-FONT_COLOR = "#000000"
-
-# ====== CUSTOM CSS FOR PROFESSIONAL UI ======
-st.markdown("""
-    <style>
-    /* Main container padding */
-    [data-testid="stAppViewContainer"] {
-        padding: 1.5rem 1rem;
-    }
-
-    /* Title styling */
-    h1 {
-        text-align: center;
-        color: #1a3a6c;
-        font-weight: 700;
-        margin-bottom: 0.2rem;
-    }
-
-    /* Subtitle/caption styling */
-    .stCaption {
-        text-align: center;
-        color: #555;
-        font-size: 0.95rem;
-        margin-bottom: 1.2rem;
-    }
-
-    /* Input field */
-    .stTextInput > div > div > input {
-        padding: 0.75rem;
-        font-size: 1.1rem;
-        border-radius: 12px;
-        border: 2px solid #e0e0e0;
-        transition: border-color 0.3s;
-    }
-    .stTextInput > div > div > input:focus {
-        border-color: #1a3a6c;
-        box-shadow: 0 0 0 2px rgba(26, 58, 108, 0.2);
-    }
-
-    /* Generate button */
-    .stButton > button {
-        background: linear-gradient(135deg, #1a3a6c, #2c5282);
-        color: white;
-        padding: 0.75rem 1.5rem;
-        font-size: 1.1rem;
-        font-weight: 600;
-        border: none;
-        border-radius: 12px;
-        width: 100%;
-        transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .stButton > button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(26, 58, 108, 0.3);
-    }
-
-    /* Certificate preview */
-    .stImage > img {
-        border-radius: 12px;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-        margin: 1.5rem 0;
-        border: 1px solid #eee;
-    }
-
-    /* Download buttons */
-    .download-buttons {
-        display: flex;
-        gap: 1rem;
-        margin-top: 1.5rem;
-    }
-    .download-buttons > div > button {
-        flex: 1;
-        padding: 0.75rem;
-        font-weight: 600;
-        border-radius: 10px;
-        border: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-    }
-    .btn-png {
-        background-color: #4CAF50 !important;
-        color: white !important;
-    }
-    .btn-pdf {
-        background-color: #E53935 !important;
-        color: white !important;
-    }
-
-    /* Footer */
-    .footer {
-        text-align: center;
-        margin-top: 2.5rem;
-        padding-top: 1.5rem;
-        border-top: 1px solid #eee;
-        color: #666;
-        font-size: 0.9rem;
-        line-height: 1.5;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-        .download-buttons {
-            flex-direction: column;
-        }
-        h1 {
-            font-size: 1.8rem;
-        }
-    }
-    </style>
-""", unsafe_allow_html=True)
+# ⚙️ Customize these to match your certificate design
+NAME_X = 750      # Horizontal position
+NAME_Y = 700      # Vertical position
+FONT_SIZE = 60    # Font size
+FONT_COLOR = "#000000"  # Text color 
 
 # ====== PAGE SETUP ======
 st.set_page_config(
@@ -133,7 +22,6 @@ st.set_page_config(
     layout="centered"
 )
 
-# ====== HEADER ======
 st.title("🎓 Certificate by RSVU")
 st.caption("Developed by Tanvir Even | President, RSVU")
 st.caption("If any error occurs, Contact: 01608514747")
@@ -146,7 +34,7 @@ if not TEMPLATE_PATH.exists():
 # ====== USER INPUT ======
 user_name = st.text_input(
     "Enter Your Full Name",
-    placeholder="e.g., Tanvir Even",
+    placeholder="e.g.,  Tanvir Even",
     help="Type your name exactly as you want it to appear"
 )
 
@@ -156,11 +44,12 @@ if st.button("✨ Generate Certificate"):
         st.warning("⚠️ Please enter your name.")
     else:
         try:
-            # Load and process certificate
+            # Load certificate background
             template = Image.open(TEMPLATE_PATH)
             cert = template.copy()
             draw = ImageDraw.Draw(cert)
 
+            # Load font
             if FONT_PATH.exists():
                 font = ImageFont.truetype(str(FONT_PATH), FONT_SIZE)
             else:
@@ -173,63 +62,54 @@ if st.button("✨ Generate Certificate"):
                         font = ImageFont.load_default()
                         st.info("ℹ️ Using basic font. Add 'font.ttf' to assets for better look.")
 
-            draw.text((NAME_X, NAME_Y), user_name, fill=FONT_COLOR, font=font)
+            # Draw name
+            draw.text(
+                (NAME_X, NAME_Y),
+                user_name,
+                fill=FONT_COLOR,
+                font=font
+            )
 
-            # Show preview
-            st.image(cert, caption="Your Certificate Preview", use_container_width=True)
+            # Display preview — ✅ FIXED: use_container_width
+            st.image(cert, caption="Preview", use_container_width=True)
 
-            # Prepare files
+            # === Prepare downloads ===
             safe_name = re.sub(r"[^a-zA-Z0-9\s]", "", user_name).strip().replace(" ", "_")
 
+            # PNG buffer
             png_buffer = io.BytesIO()
             cert.save(png_buffer, format="PNG")
             png_buffer.seek(0)
 
+            # PDF buffer (PIL requires RGB mode for PDF)
             pdf_buffer = io.BytesIO()
-            cert_rgb = cert.convert("RGB")
+            cert_rgb = cert.convert("RGB")  # Ensure RGB mode
             cert_rgb.save(pdf_buffer, format="PDF")
             pdf_buffer.seek(0)
 
-            # Download buttons with custom styling
+            # === Download buttons ===
             col1, col2 = st.columns(2)
 
             with col1:
                 st.download_button(
-                    label="📥 PNG",
+                    label="📥 Download as PNG",
                     data=png_buffer,
                     file_name=f"{safe_name}_certificate.png",
-                    mime="image/png",
-                    key="png_btn"
+                    mime="image/png"
                 )
 
             with col2:
                 st.download_button(
-                    label="📄 PDF",
+                    label="📄 Download as PDF",
                     data=pdf_buffer,
                     file_name=f"{safe_name}_certificate.pdf",
-                    mime="application/pdf",
-                    key="pdf_btn"
+                    mime="application/pdf"
                 )
-
-            # Inject custom button classes (via JS workaround)
-            st.markdown("""
-                <script>
-                const buttons = window.parent.document.querySelectorAll('button');
-                buttons.forEach(btn => {
-                    if (btn.innerText.includes('PNG')) btn.className += ' btn-png';
-                    if (btn.innerText.includes('PDF')) btn.className += ' btn-pdf';
-                });
-                </script>
-            """, unsafe_allow_html=True)
 
         except Exception as e:
             st.error(f"❌ An error occurred: {str(e)}")
             st.info("Please contact the admin to check the template or font file.")
 
 # ====== FOOTER ======
-st.markdown("""
-    <div class="footer">
-        <p>👨‍💻 Robotics Society of Varendra University<br>
-        Dept. of CSE, Varendra University | Rajshahi, Bangladesh</p>
-    </div>
-""", unsafe_allow_html=True)
+st.markdown("---")
+st.caption("👨‍💻 Robotics Society of Varendra University|Dept. of CSE, Varendra University| Rajshahi,Bangladesh")
