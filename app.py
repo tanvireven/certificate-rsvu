@@ -34,7 +34,7 @@ if not TEMPLATE_PATH.exists():
 # ====== USER INPUT ======
 user_name = st.text_input(
     "Enter Your Full Name",
-    placeholder="e.g., Md. Tanvir Hasan",
+    placeholder="e.g.,  Tanvir Even",
     help="Type your name exactly as you want it to appear"
 )
 
@@ -112,4 +112,4 @@ if st.button("✨ Generate Certificate"):
 
 # ====== FOOTER ======
 st.markdown("---")
-st.caption("👨‍💻 Robotics Society of Varendra University")
+st.caption("👨‍💻 Robotics Society of Varendra University|Dept. of CSE, Varendra University| Rajshahi,Bangladesh")
