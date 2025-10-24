@@ -13,7 +13,7 @@ FONT_PATH = ASSETS_DIR / "font.ttf"
 NAME_X = 750      # Horizontal position
 NAME_Y = 700      # Vertical position
 FONT_SIZE = 60    # Font size
-FONT_COLOR = "#000000"  # Text color
+FONT_COLOR = "#000000"  # Text color 
 
 # ====== PAGE SETUP ======
 st.set_page_config(
