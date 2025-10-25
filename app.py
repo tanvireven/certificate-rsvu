@@ -23,7 +23,7 @@ st.set_page_config(
 )
 
 st.title("🎓 Certificate for Participants")
-st.caption("at Modern 3D Printing by RSVU")
+st.markdown("at Modern 3D Printing by RSVU")
 st.caption("Developed by Tanvir Even | President, RSVU")
 st.caption("If any error occurs, Contact: 01608514747")
 
@@ -120,7 +120,7 @@ st.markdown("""
     Dept. of CSE, Varendra University | Rajshahi, Bangladesh</p>
 
         💬 Have a suggestion or need help?
-    Contact: 
+        
 👉 [Facebook](https://www.facebook.com/tanvireven07) | 📱 [WhatsApp](https://wa.me/8801608514747)
 </div>
 """, unsafe_allow_html=True)
