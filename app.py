@@ -10,7 +10,7 @@ TEMPLATE_PATH = ASSETS_DIR / "template.png"
 FONT_PATH = ASSETS_DIR / "font.ttf"
 
 # ⚙️ Customize these to match your certificate design
-NAME_X = 750      # Horizontal position
+NAME_X = 750      # Center reference X (middle of certificate)
 NAME_Y = 700      # Vertical position
 FONT_SIZE = 60    # Font size
 FONT_COLOR = "#000000"  # Text color 
@@ -68,28 +68,35 @@ if st.button("✨ Generate Certificate"):
                         font = ImageFont.load_default()
                         st.info("ℹ️ Using basic font. Add 'font.ttf' to assets for better look.")
 
-            # Draw name
+            # ====== CENTER THE NAME (FIX FOR LONG NAMES) ======
+            bbox = draw.textbbox((0, 0), user_name, font=font)
+            text_width = bbox[2] - bbox[0]
+            centered_x = NAME_X - (text_width // 2)
+
+            # Optional: Add horizontal safety margin (uncomment if needed)
+            # centered_x = max(150, min(centered_x, 1350))
+
             draw.text(
-                (NAME_X, NAME_Y),
+                (centered_x, NAME_Y),
                 user_name,
                 fill=FONT_COLOR,
                 font=font
             )
 
-            # Display preview — ✅ use_container_width (no warning)
+            # Display preview
             st.image(cert, caption="Preview", use_container_width=True)
 
             # === Prepare downloads ===
             safe_name = re.sub(r"[^a-zA-Z0-9\s]", "", user_name).strip().replace(" ", "_")
 
-            # PNG buffer
+            # PNG
             png_buffer = io.BytesIO()
             cert.save(png_buffer, format="PNG")
             png_buffer.seek(0)
 
-            # PDF buffer (PIL requires RGB mode for PDF)
+            # PDF
             pdf_buffer = io.BytesIO()
-            cert_rgb = cert.convert("RGB")  # Ensure RGB mode
+            cert_rgb = cert.convert("RGB")
             cert_rgb.save(pdf_buffer, format="PDF")
             pdf_buffer.seek(0)
 
@@ -116,16 +123,8 @@ if st.button("✨ Generate Certificate"):
             st.error(f"❌ An error occurred: {str(e)}")
             st.info("Please contact the admin to check the template or font file.")
 
-# ====== ENHANCED FOOTER WITH CONTACT LINKS (SAFE & RELIABLE) ======
+# ====== FOOTER WITH CONTACT LINKS ======
 st.markdown("---")
-
-st.markdown("""
-<div style="text-align: center; color: #555; font-size: 0.95rem; line-height: 1.6;">
-    <p>👨‍💻 Robotics Society of Varendra University<br>
-    Dept. of CSE, Varendra University | Rajshahi, Bangladesh</p>
-
-        💬 Have a suggestion or need help?
-        
-👉 [Facebook](https://www.facebook.com/tanvireven07) | 📱 [WhatsApp](https://wa.me/8801608514747)
-</div>
-""", unsafe_allow_html=True)
+st.caption("👨‍💻 Robotics Society of Varendra University | Dept. of CSE, Varendra University | Rajshahi, Bangladesh")
+st.markdown("💬 **Have a suggestion or need help?**")
+st.markdown("👉 [Facebook](https://www.facebook.com/tanvireven07) | 📱 [WhatsApp](https://wa.me/8801608514747)")
