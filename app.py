@@ -17,13 +17,13 @@ FONT_COLOR = "#000000"  # Text color
 
 # ====== PAGE SETUP ======
 st.set_page_config(
-    page_title="Certificate Generator",
+    page_title="Certificate for Participants",
     page_icon="🎓",
     layout="centered"
 )
 
 st.title("🎓 Certificate for Participants")
-at Modern 3D Printing by RSVU
+st.caption("at Modern 3D Printing by RSVU")
 st.caption("Developed by Tanvir Even | President, RSVU")
 st.caption("If any error occurs, Contact: 01608514747")
 
