@@ -117,10 +117,9 @@ st.markdown("""
 <div style="text-align: center; color: #555; font-size: 0.95rem; line-height: 1.6;">
     <p>👨‍💻 Robotics Society of Varendra University<br>
     Dept. of CSE, Varendra University | Rajshahi, Bangladesh</p>
-    
-    <p>
+
         💬 Have a suggestion or need help?
-    </p>
+    
     <p>
         <a href="https://www.facebook.com/tanvireven07" target="_blank" style="color: #4267B2; text-decoration: none; margin: 0 12px; font-weight: 500;">
             👥 Facebook
