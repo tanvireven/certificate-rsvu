@@ -121,8 +121,8 @@ st.markdown("""
 
         💬 Have a suggestion or need help?
     
-st.caption("👨‍💻 Robotics Society of Varendra University | Dept. of CSE, Varendra University | Rajshahi, Bangladesh")
-st.markdown("💬 **Need help or have a suggestion?**")
-st.markdown("👉 [Facebook](https://www.facebook.com/tanvireven07) | 📱 [WhatsApp](https://wa.me/8801608514747)")
+👨‍💻 Robotics Society of Varendra University | Dept. of CSE, Varendra University | Rajshahi, Bangladesh
+💬 **Need help or have a suggestion?
+👉 [Facebook](https://www.facebook.com/tanvireven07) | 📱 [WhatsApp](https://wa.me/8801608514747)
 </div>
 """, unsafe_allow_html=True)
