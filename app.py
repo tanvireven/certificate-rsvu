@@ -120,9 +120,7 @@ st.markdown("""
     Dept. of CSE, Varendra University | Rajshahi, Bangladesh</p>
 
         💬 Have a suggestion or need help?
-    
-👨‍💻 Robotics Society of Varendra University | Dept. of CSE, Varendra University | Rajshahi, Bangladesh
-💬 **Need help or have a suggestion?
+    Contact: 
 👉 [Facebook](https://www.facebook.com/tanvireven07) | 📱 [WhatsApp](https://wa.me/8801608514747)
 </div>
 """, unsafe_allow_html=True)
