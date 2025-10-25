@@ -23,7 +23,12 @@ st.set_page_config(
 )
 
 st.title("🎓 Certificate for Participants")
-st.markdown("at Modern 3D Printing by RSVU")
+st.markdown(
+    "<div style='text-align: center; font-style: italic; color: #555; margin-top: -10px; margin-bottom: 10px;'>"
+    "Modern 3D Printing by RSVU"
+    "</div>",
+    unsafe_allow_html=True
+)
 st.caption("Developed by Tanvir Even | President, RSVU")
 st.caption("If any error occurs, Contact: 01608514747")
 
