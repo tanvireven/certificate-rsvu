@@ -25,7 +25,7 @@ st.set_page_config(
 st.title("🎓 Certificate for Participants")
 st.markdown(
     "<div style='text-align: center; font-style: italic; font-weight: bold; color: #1a3a6c; margin-top: -10px; margin-bottom: 12px;'>"
-    "Modern 3D Printing by RSVU"
+    "Workshop on Modern 3D Printing by RSVU"
     "</div>",
     unsafe_allow_html=True
 )
