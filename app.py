@@ -75,7 +75,21 @@ if st.button("✨ Generate Certificate"):
                 fill=FONT_COLOR,
                 font=font
             )
+            # Get text bounding box (width & height)
+            bbox = draw.textbbox((0, 0), user_name, font=font)
+            text_width = bbox[2] - bbox[0]
+            text_height = bbox[3] - bbox[1]
 
+            # Calculate centered X position
+            centered_x = NAME_X - (text_width // 2)
+
+            # Draw text at centered position
+            draw.text(
+            (centered_x, NAME_Y),
+            user_name,
+            fill=FONT_COLOR,
+            font=font
+            )
 
             # Display preview — ✅ use_container_width (no warning)
             st.image(cert, caption="Preview", use_container_width=True)
