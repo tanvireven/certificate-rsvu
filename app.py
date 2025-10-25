@@ -22,7 +22,8 @@ st.set_page_config(
     layout="centered"
 )
 
-st.title("🎓 Certificate by RSVU")
+st.title("🎓 Certificate for Participants")
+at Modern 3D Printing by RSVU
 st.caption("Developed by Tanvir Even | President, RSVU")
 st.caption("If any error occurs, Contact: 01608514747")
 
