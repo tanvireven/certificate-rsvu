@@ -70,7 +70,7 @@ if st.button("✨ Generate Certificate"):
                 font=font
             )
 
-            # Display preview — ✅ FIXED: use_container_width
+            # Display preview — ✅ use_container_width (no warning)
             st.image(cert, caption="Preview", use_container_width=True)
 
             # === Prepare downloads ===
@@ -110,7 +110,7 @@ if st.button("✨ Generate Certificate"):
             st.error(f"❌ An error occurred: {str(e)}")
             st.info("Please contact the admin to check the template or font file.")
 
-# ====== ENHANCED FOOTER WITH SOCIAL LINKS ======
+# ====== ENHANCED FOOTER WITH SOCIAL ICONS ======
 st.markdown("---")
 
 st.markdown("""
@@ -122,17 +122,17 @@ st.markdown("""
         💬 Have a suggestion or need help?
     </p>
     <p>
-        <a href="https://www.facebook.com/tanvireven07" target="_blank" style="text-decoration: none; margin: 0 10px;">
-            <i class="fab fa-facebook" style="color: #4267B2; font-size: 1.4rem;"></i><br>
-            <span style="color: #333;">Facebook</span>
+        <a href="https://www.facebook.com/tanvireven07" target="_blank" style="text-decoration: none; margin: 0 12px;">
+            <i class="fab fa-facebook" style="color: #4267B2; font-size: 1.5rem;"></i><br>
+            <span style="color: #333; font-size: 0.9rem;">Facebook</span>
         </a>
-        <a href="https://wa.me/8801608514747" target="_blank" style="text-decoration: none; margin: 0 10px;">
-            <i class="fab fa-whatsapp" style="color: #25D366; font-size: 1.4rem;"></i><br>
-            <span style="color: #333;">WhatsApp</span>
+        <a href="https://wa.me/8801608514747" target="_blank" style="text-decoration: none; margin: 0 12px;">
+            <i class="fab fa-whatsapp" style="color: #25D366; font-size: 1.5rem;"></i><br>
+            <span style="color: #333; font-size: 0.9rem;">WhatsApp</span>
         </a>
     </p>
 </div>
 
-<!-- Load Font Awesome for icons -->
+<!-- Load Font Awesome Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 """, unsafe_allow_html=True)
