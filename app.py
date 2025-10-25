@@ -121,13 +121,8 @@ st.markdown("""
 
         💬 Have a suggestion or need help?
     
-    <p>
-        <a href="https://www.facebook.com/tanvireven07" target="_blank" style="color: #4267B2; text-decoration: none; margin: 0 12px; font-weight: 500;">
-            👥 Facebook
-        </a>
-        <a href="https://wa.me/8801608514747" target="_blank" style="color: #25D366; text-decoration: none; margin: 0 12px; font-weight: 500;">
-            💬 WhatsApp
-        </a>
-    </p>
+st.caption("👨‍💻 Robotics Society of Varendra University | Dept. of CSE, Varendra University | Rajshahi, Bangladesh")
+st.markdown("💬 **Need help or have a suggestion?**")
+st.markdown("👉 [Facebook](https://www.facebook.com/tanvireven07) | 📱 [WhatsApp](https://wa.me/8801608514747)")
 </div>
 """, unsafe_allow_html=True)
