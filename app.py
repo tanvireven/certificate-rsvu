@@ -29,8 +29,8 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
-st.caption("Developed by Tanvir Even | President, RSVU")
-st.caption("If any error occurs, Contact: 01608514747")
+st.caption("Developed by Md Tanvir Hossain | President, RSVU")
+st.caption("If any error occurs, Contact me!!")
 
 # ====== VALIDATE ASSETS ======
 if not TEMPLATE_PATH.exists():
